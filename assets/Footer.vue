@@ -17,7 +17,7 @@
     </div>
 
     <div class="project-links">
-      <strong>库:</strong><a href="https://github.com/52op/FlareDrive-R2" target="_blank"
+      <strong>git库:</strong><a href="https://github.com/52op/FlareDrive-R2" target="_blank"
         rel="noopener noreferrer">FlareDrive-R2增强版</a>
       <strong>感谢:</strong><a href="https://github.com/willow-god/FlareDrive-R2" target="_blank"
         rel="noopener noreferrer">FlareDrive-R2</a>
@@ -39,7 +39,7 @@ export default {
     return {
       homeUrl: "https://yq1.org/",
       steamUrl: "https://steamcommunity.com/id/Aimb1t/",
-      emailUrl: "yq1@mail.ustc.edu.cn"
+      emailUrl: "mailto:yq1qy@outlook.com"
     };
   }
 };
