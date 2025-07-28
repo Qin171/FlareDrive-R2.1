@@ -92,7 +92,7 @@
           @focus="onSearchFocus"
           @blur="onSearchBlur"
           aria-label="Search"
-          placeholder="🍿 输入以全局搜索文件"
+          placeholder="搜索（有bug记得修）"
           class="search-input"
           ref="searchInput"
         />
@@ -2526,6 +2526,13 @@ export default {
   display: flex;
 }
 
+.app-bar-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* 关键：将右侧容器推到最右边 */
+  gap: 12px; /* 按钮间距 */
+}
+  
 @media (max-width: 400px) {
   .menu-button {
     margin: 0;
