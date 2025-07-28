@@ -1,14 +1,8 @@
 <template>
   <footer class="footer">
     <div class="icons">
-      <a :href="homeUrl" target="_blank" rel="noopener noreferrer" class="icon-link" title="主页">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M341.8 72.6C329.5 61.2 310.5 61.2 298.3 72.6L74.3 280.6C64.7 289.6 61.5 303.5 66.3 315.7C71.1 327.9 82.8 336 96 336L112 336L112 512C112 547.3 140.7 576 176 576L464 576C499.3 576 528 547.3 528 512L528 336L544 336C557.2 336 569 327.9 573.8 315.7C578.6 303.5 575.4 289.5 565.8 280.6L341.8 72.6zM304 384L336 384C362.5 384 384 405.5 384 432L384 528L256 528L256 432C256 405.5 277.5 384 304 384z"></path></svg>
-      </a>
       <a :href="steamUrl" target="_blank" rel="noopener noreferrer" class="icon-link" title="steam">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M568 320C568 457 456.8 568 319.6 568C205.8 568 110 491.7 80.6 387.6L175.8 426.9C182.2 459 210.7 483.3 244.7 483.3C283.9 483.3 316.6 450.9 314.9 409.8L399.4 349.6C451.5 350.9 495.2 308.7 495.2 256.1C495.2 204.5 453.2 162.6 401.5 162.6C349.8 162.6 307.8 204.6 307.8 256.1L307.8 257.3L248.6 343C233.1 342.1 217.9 346.4 205.1 355.1L72 300.1C82.2 172.4 189.1 72 319.6 72C456.8 72 568 183 568 320zM227.7 448.3L197.2 435.7C202.8 447.3 212.5 456.5 224.4 461.5C251.3 472.7 282.2 459.9 293.4 433.1C298.8 420.1 298.9 405.8 293.5 392.8C288.1 379.8 278 369.6 265 364.2C252.1 358.8 238.3 359 226.1 363.6L257.6 376.6C277.4 384.8 286.8 407.5 278.5 427.3C270.2 447.2 247.5 456.5 227.7 448.3zM401.5 193.8C435.9 193.8 463.8 221.7 463.8 256.1C463.8 290.5 435.9 318.4 401.5 318.4C367.1 318.4 339.2 290.5 339.2 256.1C339.2 221.7 367.1 193.8 401.5 193.8zM401.6 302.8C427.4 302.8 448.4 281.8 448.4 256C448.4 230.2 427.4 209.2 401.6 209.2C375.8 209.2 354.8 230.2 354.8 256C354.8 281.8 375.8 302.8 401.6 302.8z"></path></svg>
-      </a>
-      <a :href="emailUrl" target="_blank" rel="noopener noreferrer" class="icon-link" title="邮箱">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M112 128C85.5 128 64 149.5 64 176C64 191.1 71.1 205.3 83.2 214.4L291.2 370.4C308.3 383.2 331.7 383.2 348.8 370.4L556.8 214.4C568.9 205.3 576 191.1 576 176C576 149.5 554.5 128 528 128L112 128zM64 260L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 260L377.6 408.8C343.5 434.4 296.5 434.4 262.4 408.8L64 260z"></path></svg>
       </a>
     </div>
 
@@ -21,8 +15,8 @@
         rel="noopener noreferrer">FlareDrive-R2增强版</a>
       <strong>感谢:</strong><a href="https://github.com/willow-god/FlareDrive-R2" target="_blank"
         rel="noopener noreferrer">FlareDrive-R2</a>
-      <strong>初始项目:</strong><a href="https://github.com/ljxi/Cloudflare-R2-oss" target="_blank"
-        rel="noopener noreferrer">Cloudflare-R2-OSS</a>
+      <strong>我的邮箱:</strong><a href="mailto:yq1qy@outlook.com" target="_blank"
+        rel="noopener noreferrer">yq1qy@outlook.com</a>
     </div>
 
     <div class="powered">Powered by <a href="https://workers.cloudflare.com/" target="_blank"
@@ -37,9 +31,7 @@ export default {
   name: "Footer",
   data() {
     return {
-      homeUrl: "https://yq1.org/",
-      steamUrl: "https://steamcommunity.com/id/Aimb1t/",
-      emailUrl: "mailto:yq1qy@outlook.com"
+      steamUrl: "https://steamcommunity.com/id/Aimb1t/"
     };
   }
 };
