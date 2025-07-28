@@ -40,10 +40,9 @@ export default {
   name: "Footer",
   data() {
     return {
-      homeUrl: "https://www.sztcrs.com/",
-      blogUrl: "https://blog.sztcrs.com/",
-      githubUrl: "https://github.com/52op",
-      emailUrl: "mailto:admin@sztcrs.com"
+      homeUrl: "https://yq1.com/",
+      githubUrl: "https://github.com/Qin171",
+      emailUrl: "yq1@mail.ustc.edu.cn"
     };
   }
 };
