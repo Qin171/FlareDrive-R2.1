@@ -100,6 +100,25 @@
 
       <!-- 右侧控件容器 -->
       <div class="app-bar-right">
+        <!-- 添加导航按钮 -->
+        <div class="nav-button-container">
+          <a href="/navigation.html" class="nav-button" title="导航页面">
+            <button class="circle" style="display: flex; align-items: center; background-color: rgb(245, 245, 245);">
+              <p style="
+                  white-space: nowrap;
+                  margin: 0 10px 0 0;
+                  font-size: 16px;
+                  font-family: '寒蝉半圆体', -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
+                  'Segoe UI', 'Liberation Sans', sans-serif;">
+                导航
+              </p>
+              <svg viewBox="0 0 24 24" width="24" height="24">
+                <path d="M3,3H21V5H3V3M3,7H21V9H3V7M3,11H21V13H3V11M3,15H21V17H3V15M3,19H21V21H3V19Z" fill="#2c2c2c"></path>
+              </svg>
+            </button>
+          </a>
+        </div>
+        
         <!-- 登录/用户状态按钮 -->
         <div class="user-status-container">
           <button class="user-status-button" @click="showLoginModal" :title="isLoggedIn ? '切换用户' : '登录'">
