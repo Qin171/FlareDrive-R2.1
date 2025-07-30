@@ -3,126 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlareDrive - 导航页面</title>
-    <link rel="stylesheet" href="/assets/main.css">
+    <title>FlareDrive 导航中心</title>
     <link rel="icon" type="image/png" href="/favicon.ico">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
             padding: 20px;
-            background: #f5f5f5;
+            position: relative;
         }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        
+        /* 继承原来的背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            /* 这里设置默认背景，会被JS中设置的背景覆盖 */
+            background-color: #f5f5f5;
+            opacity: 1;
         }
+        
         .header {
-            display: flex;
-            align-items: center;
+            text-align: center;
             margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
+            padding: 20px 0;
         }
+        
         .header img {
-            height: 32px;
+            height: 36px;
             margin-right: 10px;
+            vertical-align: middle;
         }
+        
         .header h1 {
-            margin: 0;
-            font-size: 24px;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 28px;
             color: #333;
         }
-        .nav-grid {
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
+            padding: 20px;
         }
+        
         .nav-item {
-            background: #f9f9f9;
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
             padding: 20px;
             text-decoration: none;
             color: #333;
-            transition: all 0.2s ease;
-            border: 1px solid #eee;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        
         .nav-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-color: #ddd;
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
         }
-        .nav-item h3 {
-            margin-top: 0;
-            color: #007cba;
-        }
-        .nav-item p {
-            margin-bottom: 0;
-            color: #666;
-            font-size: 14px;
-        }
-        .nav-item-icon {
+        
+        .nav-icon {
             font-size: 24px;
-            margin-bottom: 10px;
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 124, 186, 0.1);
+            border-radius: 50%;
         }
+        
+        .nav-text {
+            flex: 1;
+        }
+        
+        .nav-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .nav-desc {
+            font-size: 14px;
+            color: #666;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
         footer {
-            margin-top: 30px;
             text-align: center;
+            padding: 20px;
             color: #666;
             font-size: 14px;
-            padding: 15px;
-            border-top: 1px solid #eee;
+            margin-top: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+ 
+        @media (max-width: 768px) {
+            .nav-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <img src="/assets/homescreen.png" alt="FlareDrive">
-            <h1>FlareDrive 导航中心</h1>
-        </div>
-        
-        <div class="nav-grid">
-            <!-- 导航项 -->
-            <a href="/" class="nav-item">
-                <div class="nav-item-icon">📂</div>
-                <h3>文件管理器</h3>
-                <p>查看和管理您的所有文件</p>
-            </a>
-            
-            <a href="/docs" class="nav-item">
-                <div class="nav-item-icon">📚</div>
-                <h3>项目文档</h3>
-                <p>查看项目的详细文档和说明</p>
-            </a>
-            
-            <a href="/media" class="nav-item">
-                <div class="nav-item-icon">🎬</div>
-                <h3>媒体中心</h3>
-                <p>浏览和预览所有媒体文件</p>
-            </a>
-            
-            <a href="/tools" class="nav-item">
-                <div class="nav-item-icon">🔧</div>
-                <h3>实用工具</h3>
-                <p>各种实用工具和功能</p>
-            </a>
-            
-            <!-- 添加更多导航项 -->
-        </div>
-        
-        <footer>
-            <p>© 2023 FlareDrive | 基于Cloudflare Workers和R2</p>
-        </footer>
+    <div class="header">
+        <img src="/assets/homescreen.png" alt="FlareDrive">
+        <h1>FlareDrive 导航中心</h1>
     </div>
     
+    <div class="nav-container">
+        <!-- 导航项 - 可以根据需要添加或修改 -->
+        <a href="/" class="nav-item">
+            <div class="nav-icon">📂</div>
+            <div class="nav-text">
+                <div class="nav-title">文件管理器</div>
+                <div class="nav-desc">访问和管理你的所有文件和文件夹</div>
+            </div>
+        </a>
+        
+        <a href="/media" class="nav-item">
+            <div class="nav-icon">🎬</div>
+            <div class="nav-text">
+                <div class="nav-title">媒体中心</div>
+                <div class="nav-desc">浏览和预览图片、视频和音频文件</div>
+            </div>
+        </a>
+        
+        <a href="/docs" class="nav-item">
+            <div class="nav-icon">📄</div>
+            <div class="nav-text">
+                <div class="nav-title">文档区</div>
+                <div class="nav-desc">查看和编辑文档、表格和演示文稿</div>
+            </div>
+        </a>
+        
+        <a href="/tools" class="nav-item">
+            <div class="nav-icon">🔧</div>
+            <div class="nav-text">
+                <div class="nav-title">实用工具</div>
+                <div class="nav-desc">各种实用工具和功能集合</div>
+            </div>
+        </a>
+        
+        <a href="/favorites" class="nav-item">
+            <div class="nav-icon">⭐</div>
+            <div class="nav-text">
+                <div class="nav-title">我的收藏</div>
+                <div class="nav-desc">快速访问你收藏的文件和文件夹</div>
+            </div>
+        </a>
+        
+        <a href="/recent" class="nav-item">
+            <div class="nav-icon">🕒</div>
+            <div class="nav-text">
+                <div class="nav-title">最近访问</div>
+                <div class="nav-desc">查看最近浏览或编辑的文件</div>
+            </div>
+        </a>
+        
+        <a href="/shared" class="nav-item">
+            <div class="nav-icon">👥</div>
+            <div class="nav-text">
+                <div class="nav-title">共享文件</div>
+                <div class="nav-desc">管理已共享或共享给你的文件</div>
+            </div>
+        </a>
+        
+        <a href="/settings" class="nav-item">
+            <div class="nav-icon">⚙️</div>
+            <div class="nav-text">
+                <div class="nav-title">设置中心</div>
+                <div class="nav-desc">自定义和配置系统设置</div>
+            </div>
+        </a>
+    </div>
+    
+    <footer>
+        <p>© 2023 FlareDrive | 基于Cloudflare Workers和R2存储</p>
+    </footer>
+    
     <script>
-        // 可以添加一些简单的交互效果
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('导航页面已加载');
+        // 获取背景图片URL
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // 尝试从服务器获取配置（如果有背景图片设置）
+                const configResponse = await fetch('/api/config');
+                const config = await configResponse.json();
+                
+                // 如果有背景图片设置，应用它
+                if (config && config.backgroundImageUrl) {
+                    document.body.style.backgroundImage = `url('${config.backgroundImageUrl}')`;
+                }
+            } catch (error) {
+                console.log('无法获取背景配置，使用默认背景');
+                // 如果无法获取或出错，可以设置一个默认背景
+                document.body.style.backgroundColor = '#f5f5f5';
+            }
         });
     </script>
 </body>
