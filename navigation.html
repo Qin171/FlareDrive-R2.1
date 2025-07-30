@@ -1,134 +1,153 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FlareDrive 导航中心</title>
-  <link rel="stylesheet" href="/assets/main.css" />
-  <link rel="icon" type="image/png" href="/favicon.ico" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "寒蝉半圆体", -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
-        "Segoe UI", "Liberation Sans", sans-serif;
-    }
-    
-    .main {
-      height: 100vh;
-      width: 100%;
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-    }
-    
-    .nav-header {
-      display: flex;
-      align-items: center;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    
-    .nav-title {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: inherit;
-    }
-    
-    .nav-title img {
-      height: 24px;
-    }
-    
-    .nav-title h1 {
-      font-size: 20px;
-      margin: 0 0 0 8px;
-      user-select: none;
-    }
-    
-    .nav-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 40px 20px;
-      gap: 20px;
-    }
-    
-    .nav-item {
-      background-color: rgba(255, 255, 255, 0.8);
-      border-radius: 10px;
-      padding: 20px;
-      width: 250px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-decoration: none;
-      color: #333;
-    }
-    
-    .nav-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-    }
-    
-    .nav-item h2 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 18px;
-      color: #333;
-    }
-    
-    .nav-item p {
-      margin: 0;
-      font-size: 14px;
-      color: #666;
-    }
-  </style>
-</head>
-<body>
-  <div class="main" style="background-image: url('/assets/bg.jpg')">
-    <div class="nav-header">
-      <a href="/" class="nav-title">
-        <img src="/assets/homescreen.png" alt="FlareDrive" />
-        <h1>FlareDrive 导航中心</h1>
-      </a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlareDrive 导航中心</title>
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: '寒蝉半圆体', -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
+          'Segoe UI', 'Liberation Sans', sans-serif;
+      }
+      
+      .main {
+        height: 100vh;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      
+      .header-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .header-title img {
+        height: 40px;
+        margin-right: 10px;
+      }
+      
+      .header-title h1 {
+        font-size: 36px;
+        color: white;
+        margin: 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      
+      .nav-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
+      }
+      
+      .nav-item {
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 8px;
+        padding: 20px;
+        text-decoration: none;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: transform 0.2s, background-color 0.2s;
+        backdrop-filter: blur(5px);
+      }
+      
+      .nav-item:hover {
+        transform: translateY(-5px);
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+      
+      .nav-icon {
+        font-size: 48px;
+        margin-bottom: 15px;
+      }
+      
+      .nav-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      
+      .nav-desc {
+        font-size: 14px;
+        opacity: 0.8;
+      }
+      
+      @media (max-width: 768px) {
+        .nav-container {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main" style="background-image: url('/assets/bg-light.webp');">
+      <div class="header">
+        <div class="header-title">
+          <img src="/assets/homescreen.png" alt="FlareDrive">
+          <h1>FlareDrive 导航中心</h1>
+        </div>
+      </div>
+      
+      <div class="nav-container">
+        <!-- 这里可以根据需要添加您的导航链接 -->
+        <a href="/文件路径" class="nav-item">
+          <div class="nav-icon">📁</div>
+          <div class="nav-title">文件中心</div>
+          <div class="nav-desc">访问和管理您的所有文件</div>
+        </a>
+        
+        <a href="/图片路径" class="nav-item">
+          <div class="nav-icon">🖼️</div>
+          <div class="nav-title">图片库</div>
+          <div class="nav-desc">浏览和管理图片资源</div>
+        </a>
+        
+        <a href="/视频路径" class="nav-item">
+          <div class="nav-icon">🎬</div>
+          <div class="nav-title">视频资源</div>
+          <div class="nav-desc">观看和管理视频内容</div>
+        </a>
+        
+        <a href="/文档路径" class="nav-item">
+          <div class="nav-icon">📄</div>
+          <div class="nav-title">文档仓库</div>
+          <div class="nav-desc">存储和访问重要文档</div>
+        </a>
+        
+        <a href="/音乐路径" class="nav-item">
+          <div class="nav-icon">🎵</div>
+          <div class="nav-title">音乐收藏</div>
+          <div class="nav-desc">播放和管理音频文件</div>
+        </a>
+        
+        <a href="/下载路径" class="nav-item">
+          <div class="nav-icon">⬇️</div>
+          <div class="nav-title">下载中心</div>
+          <div class="nav-desc">快速下载常用资源</div>
+        </a>
+      </div>
     </div>
-    
-    <div class="nav-container">
-      <!-- 这里添加你的导航链接 -->
-      <a href="/path/to/link1" class="nav-item">
-        <h2>文件管理</h2>
-        <p>访问FlareDrive的文件管理系统，上传、下载和管理您的文件</p>
-      </a>
-      
-      <a href="/path/to/link2" class="nav-item">
-        <h2>媒体中心</h2>
-        <p>浏览和预览您的图片、视频等媒体文件</p>
-      </a>
-      
-      <a href="/path/to/link3" class="nav-item">
-        <h2>文档中心</h2>
-        <p>查看和管理您的文档文件，支持多种格式</p>
-      </a>
-      
-      <a href="/path/to/link4" class="nav-item">
-        <h2>用户管理</h2>
-        <p>管理用户账号和权限设置</p>
-      </a>
-      
-      <a href="/path/to/link5" class="nav-item">
-        <h2>系统设置</h2>
-        <p>配置系统参数和全局选项</p>
-      </a>
-      
-      <a href="/path/to/link6" class="nav-item">
-        <h2>帮助中心</h2>
-        <p>获取使用帮助和技术支持</p>
-      </a>
-    </div>
-  </div>
-</body>
+  </body>
 </html>
