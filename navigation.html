@@ -61,11 +61,32 @@
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
     
-    .header-subtitle {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.8);
+    .search-container {
+      position: relative;
+      width: 100%;
       max-width: 600px;
-      margin: 0 auto;
+      margin-bottom: 30px;
+    }
+    
+    .search-box {
+      width: 100%;
+      padding: 15px 20px;
+      font-size: 18px;
+      border: 2px solid #e0e6ed;
+      border-radius: 50px;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .search-box:focus {
+      border-color: #4a76ee;
+      box-shadow: 0 4px 15px rgba(74, 118, 238, 0.2);
+    }
+    
+    .search-box::placeholder {
+      color: #a0aec0;
     }
     
     .nav-container {
@@ -91,7 +112,7 @@
     
     .nav-item:hover {
       transform: translateY(-5px);
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.6);
     }
     
     .nav-icon {
@@ -121,6 +142,30 @@
       font-size: 14px;
       color: var(--light-text);
       line-height: 1.6;
+    }
+    
+    .nav-index {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .search-active .nav-index {
+      opacity: 1;
+      pointer-events: auto;
     }
     
     .footer {
@@ -159,10 +204,29 @@
         <img src="/assets/homescreen.png" alt="FlareDrive">
         <h1>FlareDrive 导航中心</h1>
       </div>
-      <p class="header-subtitle">访问您最需要的工具和资源 - 精心整理的实用导航库</p>
     </div>
     
-    <div class="nav-container">
+    <div class="search-container">
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-box" 
+        placeholder="搜索导航项..."
+        autocomplete="off"
+      >
+    </div>
+    
+    <div class="nav-container" id="navContainer">
+      <!-- 原始导航项保持不变 -->
+      <!-- 添加打开方式设置项 -->
+      <a href="#" class="nav-item" id="openModeItem">
+        <div class="nav-icon">⚙️</div>
+        <div class="nav-content">
+          <div class="nav-title">打开方式设置</div>
+          <p class="nav-desc" id="openModeDesc">当前打开方式：新标签页</p>
+        </div>
+      </a>
+      
       <a href="#" class="nav-item">
         <div class="nav-icon">✏️</div>
         <div class="nav-content">
@@ -231,6 +295,200 @@
     <div class="footer">
       <p>© 2025 FlareDrive. 保留所有权利 | 基于 Cloudflare Workers 构建</p>
     </div>
+    
+    <script>
+      // 导航数据
+      const navItems = [
+        // 打开方式设置项
+        { 
+          title: "打开方式设置", 
+          desc: "当前打开方式：新标签页", 
+          icon: "⚙️", 
+          isSetting: true 
+        },
+        { 
+          title: "消除笔", 
+          desc: "消除图片的某些部分用", 
+          icon: "✏️", 
+          url: "/eraser" 
+        },
+        { 
+          title: "文件中心", 
+          desc: "访问和管理您的所有文件", 
+          icon: "📁", 
+          url: "/files" 
+        },
+        { 
+          title: "图片库", 
+          desc: "浏览和管理图片资源", 
+          icon: "🖼️", 
+          url: "/images" 
+        },
+        { 
+          title: "视频资源", 
+          desc: "观看和管理视频内容", 
+          icon: "🎬", 
+          url: "/videos" 
+        },
+        { 
+          title: "文档仓库", 
+          desc: "存储和访问重要文档", 
+          icon: "📄", 
+          url: "/documents" 
+        },
+        { 
+          title: "音乐收藏", 
+          desc: "播放和管理音频文件", 
+          icon: "🎵", 
+          url: "/music" 
+        },
+        { 
+          title: "转换工具", 
+          desc: "文件格式转换和压缩工具", 
+          icon: "🔄", 
+          url: "/converter" 
+        },
+        { 
+          title: "开发工具", 
+          desc: "面向开发人员的实用工具集", 
+          icon: "🛠️", 
+          url: "/devtools" 
+        }
+      ];
+      
+      // 打开方式设置
+      let openInNewTab = true;
+      const navContainer = document.getElementById('navContainer');
+      const searchInput = document.getElementById('searchInput');
+      const openModeItem = document.getElementById('openModeItem');
+      const openModeDesc = document.getElementById('openModeDesc');
+      
+      // 当前显示的导航项（用于搜索状态）
+      let currentDisplayedItems = [];
+      
+      // 初始化导航项
+      function renderNavItems(items) {
+        navContainer.innerHTML = '';
+        currentDisplayedItems = items;
+        
+        items.forEach((item, index) => {
+          const navItem = document.createElement('a');
+          navItem.className = 'nav-item';
+          navItem.href = item.url || '#';
+          
+          // 添加数字索引（仅在搜索状态下显示）
+          const indexElement = document.createElement('div');
+          indexElement.className = 'nav-index';
+          indexElement.textContent = index + 1;
+          
+          navItem.innerHTML = `
+            <div class="nav-icon">${item.icon}</div>
+            <div class="nav-content">
+              <div class="nav-title">${item.title}</div>
+              <p class="nav-desc">${item.desc}</p>
+            </div>
+          `;
+          
+          navItem.appendChild(indexElement);
+          
+          // 添加点击事件处理
+          navItem.addEventListener('click', function(e) {
+            if (item.isSetting) {
+              e.preventDefault();
+              toggleOpenMode();
+            } else {
+              e.preventDefault();
+              openItem(item.url);
+            }
+          });
+          
+          navContainer.appendChild(navItem);
+        });
+        
+        // 更新搜索状态类
+        if (searchInput.value) {
+          navContainer.classList.add('search-active');
+        } else {
+          navContainer.classList.remove('search-active');
+        }
+      }
+      
+      // 切换打开方式
+      function toggleOpenMode() {
+        openInNewTab = !openInNewTab;
+        const modeText = openInNewTab ? '新标签页' : '当前页';
+        
+        // 更新设置项描述
+        navItems.find(item => item.isSetting).desc = `当前打开方式：${modeText}`;
+        openModeDesc.textContent = `当前打开方式：${modeText}`;
+      }
+      
+      // 打开导航项
+      function openItem(url) {
+        if (openInNewTab) {
+          window.open(url, '_blank');
+        } else {
+          window.location.href = url;
+        }
+      }
+      
+      // 搜索功能
+      searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        if (searchTerm === '') {
+          renderNavItems(navItems);
+          return;
+        }
+        
+        const filteredItems = navItems.filter(item => 
+          item.title.toLowerCase().includes(searchTerm) || 
+          item.desc.toLowerCase().includes(searchTerm)
+        );
+        
+        renderNavItems(filteredItems);
+      });
+      
+      // 全局键盘事件监听
+      document.addEventListener('keydown', function(e) {
+        // 聚焦搜索框
+        if (e.target !== searchInput && 
+            !e.ctrlKey && 
+            !e.altKey && 
+            !e.metaKey && 
+            e.key.length === 1) {
+          searchInput.focus();
+          return;
+        }
+        
+        // 回车键打开第一个结果
+        if (e.key === 'Enter' && document.activeElement === searchInput) {
+          if (currentDisplayedItems.length > 0) {
+            const firstItem = currentDisplayedItems[0];
+            if (!firstItem.isSetting) {
+              openItem(firstItem.url);
+            }
+          }
+          return;
+        }
+        
+        // Ctrl + 数字键打开对应项
+        if (e.ctrlKey && e.key >= '1' && e.key <= '9') {
+          const index = parseInt(e.key) - 1;
+          if (index < currentDisplayedItems.length) {
+            const item = currentDisplayedItems[index];
+            if (item.isSetting) {
+              toggleOpenMode();
+            } else {
+              openItem(item.url);
+            }
+          }
+        }
+      });
+      
+      // 初始渲染
+      renderNavItems(navItems);
+    </script>
   </div>
 </body>
 </html>
