@@ -70,7 +70,7 @@
     
     .search-box {
       width: 100%;
-      padding: 12px 20px;
+      padding: 10px 20px;
       font-size: 18px;
       border: 2px solid #e0e6ed;
       border-radius: 50px;
@@ -121,6 +121,7 @@
       gap: 20px;
       transition: transform 0.2s, background-color 0.2s;
       backdrop-filter: blur(5px);
+      cursor: pointer;
     }
     
     .nav-item:hover {
@@ -230,79 +231,7 @@
     </div>
     
     <div class="nav-container" id="navContainer">
-      <!-- 原始导航项保持不变 -->
-      <!-- 添加打开方式设置项 -->
-      <a href="#" class="nav-item" id="openModeItem">
-        <div class="nav-icon">⚙️</div>
-        <div class="nav-content">
-          <div class="nav-title">打开方式设置</div>
-          <p class="nav-desc" id="openModeDesc">当前打开方式：新标签页</p>
-        </div>
-      </a>
-      
-      <a href="#" class="nav-item">
-        <div class="nav-icon">✏️</div>
-        <div class="nav-content">
-          <div class="nav-title">消除笔</div>
-          <p class="nav-desc">消除图片的某些部分用</p>
-        </div>
-      </a>
-      
-      <a href="#" class="nav-item">
-        <div class="nav-icon">📁</div>
-        <div class="nav-content">
-          <div class="nav-title">文件中心</div>
-          <p class="nav-desc">访问和管理您的所有文件</p>
-        </div>
-      </a>
-      
-      <a href="#" class="nav-item">
-        <div class="nav-icon">🖼️</div>
-        <div class="nav-content">
-          <div class="nav-title">图片库</div>
-          <p class="nav-desc">浏览和管理图片资源</p>
-        </div>
-      </a>
-      
-      <a href="#" class="nav-item">
-        <div class="nav-icon">🎬</div>
-        <div class="nav-content">
-          <div class="nav-title">视频资源</div>
-          <p class="nav-desc">观看和管理视频内容</p>
-        </div>
-      </a>
-      
-      <a href="#" class="nav-item">
-        <div class="nav-icon">📄</div>
-        <div class="nav-content">
-          <div class="nav-title">文档仓库</div>
-          <p class="nav-desc">存储和访问重要文档</p>
-        </div>
-      </a>
-      
-      <a href="#" class="nav-item">
-        <div class="nav-icon">🎵</div>
-        <div class="nav-content">
-          <div class="nav-title">音乐收藏</div>
-          <p class="nav-desc">播放和管理音频文件</p>
-        </div>
-      </a>
-      
-      <a href="#" class="nav-item">
-        <div class="nav-icon">🔄</div>
-        <div class="nav-content">
-          <div class="nav-title">转换工具</div>
-          <p class="nav-desc">文件格式转换和压缩工具</p>
-        </div>
-      </a>
-      
-      <a href="#" class="nav-item">
-        <div class="nav-icon">🛠️</div>
-        <div class="nav-content">
-          <div class="nav-title">开发工具</div>
-          <p class="nav-desc">面向开发人员的实用工具集</p>
-        </div>
-      </a>
+      <!-- 导航项将由JavaScript动态生成 -->
     </div>
     
     <div class="footer">
@@ -320,10 +249,10 @@
           isSetting: true 
         },
         { 
-          title: "消除笔", 
-          desc: "消除图片的某些部分用", 
-          icon: "✏️", 
-          url: "/eraser" 
+          title: "回城", 
+          desc: "回到云盘页面", 
+          icon: "🏠", 
+          url: "https://yq1.org" 
         },
         { 
           title: "文件中心", 
@@ -373,8 +302,6 @@
       let openInNewTab = true;
       const navContainer = document.getElementById('navContainer');
       const searchInput = document.getElementById('searchInput');
-      const openModeItem = document.getElementById('openModeItem');
-      const openModeDesc = document.getElementById('openModeDesc');
       
       // 当前显示的导航项（用于搜索状态）
       let currentDisplayedItems = [];
@@ -409,7 +336,7 @@
             if (item.isSetting) {
               e.preventDefault();
               toggleOpenMode();
-            } else {
+            } else if (item.url) {
               e.preventDefault();
               openItem(item.url);
             }
@@ -432,8 +359,13 @@
         const modeText = openInNewTab ? '新标签页' : '当前页';
         
         // 更新设置项描述
-        navItems.find(item => item.isSetting).desc = `当前打开方式：${modeText}`;
-        openModeDesc.textContent = `当前打开方式：${modeText}`;
+        const settingItem = navItems.find(item => item.isSetting);
+        if (settingItem) {
+          settingItem.desc = `当前打开方式：${modeText}`;
+        }
+        
+        // 重新渲染导航项以更新描述
+        renderNavItems(currentDisplayedItems);
       }
       
       // 打开导航项
@@ -478,7 +410,7 @@
         if (e.key === 'Enter' && document.activeElement === searchInput) {
           if (currentDisplayedItems.length > 0) {
             const firstItem = currentDisplayedItems[0];
-            if (!firstItem.isSetting) {
+            if (!firstItem.isSetting && firstItem.url) {
               openItem(firstItem.url);
             }
           }
@@ -492,7 +424,7 @@
             const item = currentDisplayedItems[index];
             if (item.isSetting) {
               toggleOpenMode();
-            } else {
+            } else if (item.url) {
               openItem(item.url);
             }
           }
