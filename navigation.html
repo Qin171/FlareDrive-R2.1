@@ -209,6 +209,13 @@
         font-size: 28px;
       }
     }
+    .nav-icon-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    }
   </style>
 </head>
 <body>
@@ -251,50 +258,15 @@
         { 
           title: "回城", 
           desc: "回到云盘页面", 
-          icon: "🏠", 
+          icon: "<i class="fa-solid fa-house" style="color: #74C0FC;"></i>", 
           url: "https://yq1.org" 
         },
         { 
-          title: "文件中心", 
-          desc: "访问和管理您的所有文件", 
+          title: "wormhole", 
+          desc: "以端到端加密和自动过期链接的方式分享文件", 
           icon: "📁", 
-          url: "/files" 
-        },
-        { 
-          title: "图片库", 
-          desc: "浏览和管理图片资源", 
-          icon: "🖼️", 
-          url: "/images" 
-        },
-        { 
-          title: "视频资源", 
-          desc: "观看和管理视频内容", 
-          icon: "🎬", 
-          url: "/videos" 
-        },
-        { 
-          title: "文档仓库", 
-          desc: "存储和访问重要文档", 
-          icon: "📄", 
-          url: "/documents" 
-        },
-        { 
-          title: "音乐收藏", 
-          desc: "播放和管理音频文件", 
-          icon: "🎵", 
-          url: "/music" 
-        },
-        { 
-          title: "转换工具", 
-          desc: "文件格式转换和压缩工具", 
-          icon: "🔄", 
-          url: "/converter" 
-        },
-        { 
-          title: "开发工具", 
-          desc: "面向开发人员的实用工具集", 
-          icon: "🛠️", 
-          url: "/devtools" 
+          iconPath: "/assets/icons/wormhole.png",
+          url: "https://wormhole.app" 
         }
       ];
       
@@ -307,7 +279,7 @@
       let currentDisplayedItems = [];
       
       // 初始化导航项
-      function renderNavItems(items) {
+       function renderNavItems(items) {
         navContainer.innerHTML = '';
         currentDisplayedItems = items;
         
@@ -316,13 +288,23 @@
           navItem.className = 'nav-item';
           navItem.href = item.url || '#';
           
-          // 添加数字索引（仅在搜索状态下显示）
+          // 图标显示逻辑
+          let iconHtml;
+          if (item.iconPath) {
+            // 使用图片图标
+            iconHtml = `<img src="${item.iconPath}" alt="${item.title}" class="nav-icon-img">`;
+          } else {
+            // 使用Emoji图标
+            iconHtml = `<div class="nav-icon">${item.icon}</div>`;
+          }
+          
+          // 添加数字索引
           const indexElement = document.createElement('div');
           indexElement.className = 'nav-index';
           indexElement.textContent = index + 1;
           
           navItem.innerHTML = `
-            <div class="nav-icon">${item.icon}</div>
+            ${iconHtml}
             <div class="nav-content">
               <div class="nav-title">${item.title}</div>
               <p class="nav-desc">${item.desc}</p>
@@ -336,7 +318,7 @@
             if (item.isSetting) {
               e.preventDefault();
               toggleOpenMode();
-            } else if (item.url) {
+            } else {
               e.preventDefault();
               openItem(item.url);
             }
