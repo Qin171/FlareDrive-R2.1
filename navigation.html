@@ -64,20 +64,20 @@
     .search-container {
       position: relative;
       width: 100%;
-      max-width: 600px;
+      max-width: 800px;
       margin-bottom: 30px;
     }
     
     .search-box {
       width: 100%;
-      padding: 15px 20px;
+      padding: 12px 20px;
       font-size: 18px;
       border: 2px solid #e0e6ed;
       border-radius: 50px;
       outline: none;
       transition: all 0.3s ease;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.4);
     }
     
     .search-box:focus {
@@ -87,6 +87,19 @@
     
     .search-box::placeholder {
       color: #a0aec0;
+    }
+
+    .search-hint {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0.6;
     }
     
     .nav-container {
