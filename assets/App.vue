@@ -100,7 +100,21 @@
 
       <!-- 右侧控件容器 -->
       <div class="app-bar-right">
-        <!-- 添加导航按钮 -->
+        <!-- 登录/用户状态按钮 -->
+        <div class="user-status-container">
+          <button class="user-status-button" @click="showLoginModal" :title="isLoggedIn ? '切换用户' : '登录'">
+            <svg v-if="!isLoggedIn" viewBox="0 0 24 24" width="18" height="18" fill="#666">
+              <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+            </svg>
+            <!-- 已登录状态的图标 -->
+            <svg v-else viewBox="0 0 24 24" width="18" height="18" fill="#4CAF50">
+              <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+            </svg>
+            <span class="user-status-text">{{ getTopUserStatusText() }}</span>
+          </button>
+        </div>
+
+          <!-- 添加导航按钮 -->
         <div class="nav-button-container">
           <a href="/navigation.html" class="nav-button" title="导航页面">
             <button class="circle" style="display: flex; align-items: center; background-color: rgb(245, 245, 245);">
@@ -119,20 +133,6 @@
           </a>
         </div>
         
-        <!-- 登录/用户状态按钮 -->
-        <div class="user-status-container">
-          <button class="user-status-button" @click="showLoginModal" :title="isLoggedIn ? '切换用户' : '登录'">
-            <svg v-if="!isLoggedIn" viewBox="0 0 24 24" width="18" height="18" fill="#666">
-              <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-            </svg>
-            <!-- 已登录状态的图标 -->
-            <svg v-else viewBox="0 0 24 24" width="18" height="18" fill="#4CAF50">
-              <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-            </svg>
-            <span class="user-status-text">{{ getTopUserStatusText() }}</span>
-          </button>
-        </div>
-
         <div class="menu-button">
         <button class="circle" @click="showMenu = true" style="display: flex; align-items: center;background-color: rgb(245, 245, 245);">
           <p style="
